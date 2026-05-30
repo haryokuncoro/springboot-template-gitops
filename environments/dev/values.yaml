@@ -1,0 +1,25 @@
+postgres:
+  image: postgres:15
+  database: app
+  username: user
+  password: pass
+
+redis:
+  image: redis:7-alpine
+
+kafka:
+  image: apache/kafka:3.9.1
+
+app:
+  replicas: 2
+
+  image:
+    repository: springboot-app
+    tag: latest
+    pullPolicy: IfNotPresent
+
+  springProfile: docker
+
+jwt:
+  secret: 45fa208eef62571c5b7f975c4bf7695d
+  expiration: "3600000"
