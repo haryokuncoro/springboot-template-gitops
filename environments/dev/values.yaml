@@ -14,7 +14,7 @@ app:
   replicas: 2
 
   image:
-    repository: springboot-app
+    repository: 750004260360.dkr.ecr.us-east-1.amazonaws.com/springboot-app-service
     tag: latest
     pullPolicy: IfNotPresent
 
