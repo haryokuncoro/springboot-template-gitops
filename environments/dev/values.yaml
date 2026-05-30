@@ -15,7 +15,7 @@ app:
 
   image:
     repository: 750004260360.dkr.ecr.us-east-1.amazonaws.com/springboot-app-service
-    tag: 09f2b82debd3c453b48d7d4e9a0ca9e180d4f79b
+    tag: tag
     pullPolicy: IfNotPresent
 
   springProfile: docker
