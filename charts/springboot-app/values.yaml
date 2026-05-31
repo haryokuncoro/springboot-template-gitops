@@ -1,7 +1,7 @@
 ingress:
   enabled: true
   host : app.haryokuncoro.xyz
-  servicePort: 8080
+  servicePort: 80
 postgres:
   image: postgres:15
   database: app
