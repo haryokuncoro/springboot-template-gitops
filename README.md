@@ -4,10 +4,10 @@ argocd login argocd.haryokuncoro.xyz --username admin
 ```
 
 
-# cluster name
+## cluster name
 platform-dev-eks
 
-# Add Repository in argocd.
+## Add Repository in argocd.
 ```
 argocd repo add git@github.com:haryokuncoro/springboot-template-gitops.git --ssh-private-key-path ~/.ssh/github
 ```
