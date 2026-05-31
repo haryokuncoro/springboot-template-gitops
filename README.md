@@ -21,9 +21,9 @@ aws eks list-nodegroups \
 ```
 
 ## Find the ROLE name for the node group name.
-```
-aws eks describe-nodegroup   --cluster-name platform-dev-eks   --nodegroup-name platform-dev-eks-ng   --region us-east-1   --query "nodegroup.nodeRole"   --output 
-```
+group = eks-node-group
+role = platform-dev-eks-node-role
+
 
 ## Attach ECR read policy to the role
 ```
@@ -43,4 +43,4 @@ aws iam list-attached-role-policies \
 ## Create folder argocd in that create apps and projects folder.
 cd argocd
 kubectl apply -f projects/springboot-project.yaml
-kubectl apply -f apps/springboot-project.yaml
+kubectl apply -f apps/springboot-app.yaml
