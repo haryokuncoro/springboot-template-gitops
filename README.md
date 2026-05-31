@@ -41,52 +41,6 @@ aws iam list-attached-role-policies \
 
 
 ## Create folder argocd in that create apps and projects folder.
-
-cat argocd/projects/vprofile-project.yaml
-apiVersion: argoproj.io/v1alpha1
-kind: AppProject
-metadata:
-  name: vprofile
-  namespace: argocd
-spec:
-  description: vProfile application project
-  sourceRepos:
-    - git@github.com:<GithubAccountName>/vprofile-helm.git
-  destinations:
-    - namespace: vprofile
-      server: https://kubernetes.default.svc
-  clusterResourceWhitelist:
-    - group: ""
-      kind: Namespace
-  namespaceResourceWhitelist:
-    - group: "*"
-      kind: "*"
-
-cat argocd/apps/vprofile-app.yaml
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: vprofile
-  namespace: argocd
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
-spec:
-  project: vprofile
-  source:
-    repoURL: git@github.com:<GithubAccountName>/vprofile-helm.git
-    targetRevision: main
-    path: helm/vprofile-chart
-    helm:
-      valueFiles:
-        - values.yaml
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: vprofile
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
-      - ServerSideApply=true
-
+cd argocd
+kubectl apply -f projects/springboot-project.yaml
+kubectl apply -f apps/springboot-project.yaml
