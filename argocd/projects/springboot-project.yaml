@@ -1,0 +1,17 @@
+kind: AppProject
+metadata:
+  name: springboot-app
+  namespace: argocd
+spec:
+  description: Springboot application project
+  sourceRepos:
+    - git@github.com:haryokuncoro/springboot-template-gitops.git
+  destinations:
+    - namespace: springboot-app
+      server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+    - group: ""
+      kind: Namespace
+  namespaceResourceWhitelist:
+    - group: "*"
+      kind: "*"
