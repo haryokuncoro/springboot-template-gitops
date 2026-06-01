@@ -1,12 +1,25 @@
-replicaCount: 1
+postgres:
+  image: postgres:15
+  database: app
+  username: user
+  password: pass
 
-image:
-  repository: springboot-template17
-  tag: latest
-  pullPolicy: Never
+redis:
+  image: redis:7-alpine
 
-service:
-  type: ClusterIP
-  port: 80
+kafka:
+  image: apache/kafka:3.9.1
 
-containerPort: 8080
+app:
+  replicas: 2
+
+  image:
+    repository: springboot-template17
+    tag: latest
+    pullPolicy: IfNotPresent
+
+  springProfile: docker
+
+jwt:
+  secret: 45fa208eef62571c5b7f975c4bf7695f
+  expiration: "3600000"

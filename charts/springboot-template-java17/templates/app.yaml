@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: springboot-app
+
+spec:
+  replicas: {{ .Values.app.replicas }}
+
+  selector:
+    matchLabels:
+      app: springboot-app
+
+  template:
+    metadata:
+      labels:
+        app: springboot-app
+
+    spec:
+      containers:
+        - name: springboot-app
+
+          image: "{{ .Values.app.image.repository }}:{{ .Values.app.image.tag }}"
+
+          imagePullPolicy: {{ .Values.app.image.pullPolicy }}
+
+          ports:
+            - containerPort: 8080
+
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: {{ .Values.app.springProfile | quote }}
+
+            - name: SPRING_DATASOURCE_URL
+              value: "jdbc:postgresql://postgres:5432/app"
+
+            - name: SPRING_DATASOURCE_USERNAME
+              value: "user"
+
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: "pass"
+
+            - name: SPRING_DATA_REDIS_HOST
+              value: "redis"
+
+            - name: SPRING_DATA_REDIS_PORT
+              value: "6379"
+
+            - name: SPRING_KAFKA_BOOTSTRAP_SERVERS
+              value: "kafka:9092"
+
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: app-secret
+                  key: JWT_SECRET
+
+            - name: JWT_EXPIRATION
+              valueFrom:
+                secretKeyRef:
+                  name: app-secret
+                  key: JWT_EXPIRATION
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: springboot-app
+
+spec:
+  selector:
+    app: springboot-app
+
+  ports:
+    - port: 80
+      targetPort: 8080
